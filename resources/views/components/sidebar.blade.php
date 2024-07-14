@@ -10,7 +10,7 @@
                 <i class="bi bi-house"></i>
                 Home
             </a>
-            <a {{ route('memes.create') }} class="list-group-item list-group-item-action">
+            <a href="{{ route('memes.create') }}" class="list-group-item list-group-item-action">
                 <i class="bi bi-plus-lg"></i>
                 Upload Meme
             </a>
