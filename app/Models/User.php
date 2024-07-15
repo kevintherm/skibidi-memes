@@ -78,4 +78,10 @@ class User extends Authenticatable
         return 'No Rank';
     }
 
+
+
+    public function getRouteKeyName(): string
+    {
+        return 'username';
+    }
 }

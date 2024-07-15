@@ -60,7 +60,8 @@
             {{ $displayVotes ?? $meme->votes_count }} Upvotes
         </p>
         <span class="card-text">
-            <a class="fw-semibold link-dark link-underline link-underline-opacity-0">
+            <a href="{{ route('user.show', $meme->user->username) }}"
+                class="fw-semibold link-dark link-underline link-underline-opacity-0">
                 {{ $meme->user->username }}
             </a>
             {{ $meme->desc }}

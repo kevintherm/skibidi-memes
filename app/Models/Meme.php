@@ -52,15 +52,9 @@ class Meme extends Model
 
     public static function getTotalUpvotes(int $user_id = null)
     {
-        $query = Meme::with('upvotes')
-            ->when(
-                $user_id,
-                fn($query, $user_id) => $query->where('user_id', $user_id)
-            )
-            ->get();
+        $query = Meme::when($user_id, fn($query, $user_id) => $query->where('user_id', $user_id))
+            ->sum('votes_count');
 
-        return $query->map(
-            fn($meme) => $meme->upvotes()->where('type', 1)->count()
-        )->sum();
+        return $query;
     }
 }

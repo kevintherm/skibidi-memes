@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MemeController;
+use App\Http\Controllers\UserController;
 
 Route::view('/', 'home')
     ->name('home');
@@ -36,3 +37,6 @@ Route::middleware('guest')->group(function () {
 
 Route::delete('/logout', [AuthController::class, 'logout'])
     ->name('logout');
+
+Route::resource('user', UserController::class)
+    ->only(['show']);
