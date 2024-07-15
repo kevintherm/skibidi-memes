@@ -37,4 +37,4 @@ Route::delete('/logout', [AuthController::class, 'logout'])
     ->name('logout');
 
 
-Route::get('profile', fn() => 'Profile soon...')->name('profile');
+Route::view('profile', 'profile')->name('profile');

@@ -19,6 +19,10 @@
 
 
     <style>
+        :root {
+            --secondary: #f3f4f6;
+        }
+
         .container {
             width: 100%;
             max-width: 36rem;
