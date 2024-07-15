@@ -20,7 +20,7 @@
                 </small>
             </div>
             <p style="word-break: break-all; white-space: normal;">
-                {{ $comment['body'] }}
+                @convertUsernames($comment->body)
             </p>
             @if (Auth::check())
                 <div>

@@ -20,7 +20,7 @@
                 </small>
             </div>
             <p class="text-wrap">
-                {{ $comment['body'] }}
+                @convertUsernames($comment->body)
             </p>
             <div>
                 <button class="btn m-0 p-0" x-on:click="reply">

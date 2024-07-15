@@ -34,6 +34,7 @@ class CommentCard extends Component
     public function replyTo($id)
     {
         $reply_to = Comment::find($id);
+        $reply_to = $reply_to->parent ? $reply_to->parent : $reply_to;
         $this->replyingTo = $reply_to->user->username;
         $this->_replying_to_id = $reply_to->id;
         $this->dispatch(
