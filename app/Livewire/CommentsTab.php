@@ -61,8 +61,10 @@ class CommentsTab extends Component
 
     public function createNewComment()
     {
-        $this->validate();
+        if (!Auth::check())
+            abort(403);
 
+        $this->validate();
 
         Comment::create([
             'meme_id' => $this->meme_id,

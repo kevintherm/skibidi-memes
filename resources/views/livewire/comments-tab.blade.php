@@ -24,13 +24,16 @@
                 </div>
             @endif
         </div>
-        <div class="modal-footer justify-content-between">
-            <form wire:submit.prevent="createNewComment" class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Tulis komen" rows="1" x-ref="replyInput"
-                    wire:model="body" />
-                <button type="submit" class="btn btn-outline-secondary" type="button" id="button-addon2">Post</button>
-            </form>
-        </div>
+        @if (Auth::check())
+            <div class="modal-footer justify-content-between">
+                <form wire:submit.prevent="createNewComment" class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Tulis komen" rows="1"
+                        x-ref="replyInput" wire:model="body" />
+                    <button type="submit" class="btn btn-outline-secondary" type="button"
+                        id="button-addon2">Post</button>
+                </form>
+            </div>
+        @endif
     @else
         <div class="modal-header">
             <p class="modal-title">
