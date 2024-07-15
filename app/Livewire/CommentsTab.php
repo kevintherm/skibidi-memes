@@ -12,8 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 class CommentsTab extends Component
 {
+
     public $comments = [];
     public $meme_id, $reply_to_id;
+
+    public $perPage = 5, $maxItem = 0, $maxItemForScroll = 0;
 
     #[Validate('required|max:255')]
     public $body;
@@ -23,10 +26,21 @@ class CommentsTab extends Component
     {
         $this->comments = null;
         $this->meme_id = $meme_id;
+        $this->maxItem = Comment::where('meme_id', $meme_id)->count();
+        $this->maxItemForScroll = Comment::where('meme_id', $meme_id)
+            ->where('comment_id', null)
+            ->count();
         $this->comments = Comment::where('meme_id', $meme_id)
             ->where('comment_id', null)
             ->latest()
+            ->take($this->perPage)
             ->get();
+    }
+
+    public function loadMore()
+    {
+        $this->perPage += 4;
+        $this->getComments($this->meme_id);
     }
 
     public function showCommentsTab()

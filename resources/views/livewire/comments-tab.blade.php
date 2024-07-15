@@ -2,18 +2,25 @@
     @if ($comments)
         <div class="modal-header">
             <h1 class="modal-title fs-5" id="{{ config('views.comments-modal.id') }}">
-                Comments ({{ count($comments) }})
+                Comments ({{ $maxItem }})
             </h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-            @if (count($comments) < 1)
+        <div class="modal-body" x-ref="modalBody">
+            @if ($maxItem < 1)
                 <p>Belum ada komen.</p>
             @else
                 <div class="comments-wrapper">
                     @foreach ($comments as $comment)
                         <livewire:comment-card :comment="$comment" :wire:key="$comment->id" />
                     @endforeach
+                    @if ($maxItemForScroll != $comments->count())
+                        <div x-intersect="$wire.loadMore()" class="p-1">
+                            <div wire:loading wire:target="loadMore" class="loading-indicator">
+                                Sabar rek lagi loading...
+                            </div>
+                        </div>
+                    @endif
                 </div>
             @endif
         </div>
@@ -21,7 +28,7 @@
             <form wire:submit.prevent="createNewComment" class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="Tulis komen" rows="1" x-ref="replyInput"
                     wire:model="body" />
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Post</button>
+                <button type="submit" class="btn btn-outline-secondary" type="button" id="button-addon2">Post</button>
             </form>
         </div>
     @else
