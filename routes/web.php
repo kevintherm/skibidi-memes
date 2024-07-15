@@ -17,6 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('memes', MemeController::class)
         ->only(['store']);
 
+    Route::view('profile', 'profile')->name('profile');
 });
 
 Route::middleware('guest')->group(function () {
@@ -35,6 +36,3 @@ Route::middleware('guest')->group(function () {
 
 Route::delete('/logout', [AuthController::class, 'logout'])
     ->name('logout');
-
-
-Route::view('profile', 'profile')->name('profile');

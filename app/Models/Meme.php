@@ -29,4 +29,38 @@ class Meme extends Model
     {
         return $this->hasMany(Comment::class);
     }
+
+    public static function getTopUpvotes(int $user_id = null)
+    {
+        $query = Meme::latest()->orderByDesc('votes_count');
+
+        return $user_id ? $query->where('user_id', $user_id)->get() : $query->get();
+    }
+
+    public static function getTotalComments(int $user_id = null)
+    {
+        $memes = Meme::with('comments')
+            ->when(
+                $user_id,
+                fn($query, $user_id)
+                => $query->where('user_id', $user_id)
+            )
+            ->get();
+
+        return $memes->map(fn($meme) => $meme->comments->count())->sum();
+    }
+
+    public static function getTotalUpvotes(int $user_id = null)
+    {
+        $query = Meme::with('upvotes')
+            ->when(
+                $user_id,
+                fn($query, $user_id) => $query->where('user_id', $user_id)
+            )
+            ->get();
+
+        return $query->map(
+            fn($meme) => $meme->upvotes()->where('type', 1)->count()
+        )->sum();
+    }
 }

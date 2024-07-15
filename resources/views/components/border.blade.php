@@ -1,1 +1,1 @@
-<div class="my-4 border"></div>
+<div class="my-2 border"></div>

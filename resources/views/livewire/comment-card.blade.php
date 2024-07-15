@@ -22,13 +22,15 @@
             <p style="word-break: break-all; white-space: normal;">
                 {{ $comment['body'] }}
             </p>
-            <div>
-                <button class="btn m-0 p-0" x-on:click="reply">
-                    <small class="text-secondary fw-semibold">
-                        Reply
-                    </small>
-                </button>
-            </div>
+            @if (Auth::check())
+                <div>
+                    <button class="btn m-0 p-0" x-on:click="reply">
+                        <small class="text-secondary fw-semibold">
+                            Reply
+                        </small>
+                    </button>
+                </div>
+            @endif
             @if ($comment->replies->count())
                 @if ($showMoreReplies)
                     <div class="comments-wrapper">
