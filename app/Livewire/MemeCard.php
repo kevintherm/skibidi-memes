@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Meme;
 use App\Models\Vote;
 use Livewire\Component;
+use App\Livewire\CommentsTab;
 use Illuminate\Support\Facades\Auth;
 
 class MemeCard extends Component
@@ -60,9 +61,16 @@ class MemeCard extends Component
             ->pluck('total_votes')
             ->first();
 
-        $this->meme->update([
-            'votes_count' => $this->displayVotes
-        ]);
+        $this->meme->votes_count = $this->displayVotes ?? 0;
+        $this->meme->save();
+    }
+
+    public function showComments()
+    {
+        $this->dispatch(
+            'get-comment',
+            meme_id: $this->meme->id
+        )->to(CommentsTab::class);
     }
 
     public function render()

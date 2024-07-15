@@ -1,6 +1,8 @@
 <nav class="navbar">
     <div class="container d-flex align-items-center justify-content-between">
-        <a class="navbar-brand" href="/">{{ config('app.name') }}</a>
+        <a class="navbar-brand" href="/">
+            <img src="/logo.png" alt="Omg" width="50" height="50">
+        </a>
 
         <div class="d-flex align-items-center">
             <a href="{{ route('memes.create') }}" class="text-reset">

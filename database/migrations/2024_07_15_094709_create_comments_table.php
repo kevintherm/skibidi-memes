@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Comment;
+use App\Models\Meme;
 use App\Models\User;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -11,17 +13,19 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('memes', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)
+            $table->foreignIdFor(Meme::class)
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->text('img');
-            $table->text('desc')->nullable();
-            $table->string('upvotes_count')->default(0);
-            $table->string('downvotes_count')->default(0);
-            $table->string('votes_count')->default(0);
+            $table->foreignIdFor(User::class)
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->foreignIdFor(Comment::class)
+                ->nullable();
+            $table->text('body');
             $table->timestamps();
         });
     }
@@ -31,6 +35,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('memes');
+        Schema::dropIfExists('comments');
     }
 };
