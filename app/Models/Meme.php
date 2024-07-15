@@ -13,7 +13,7 @@ class Meme extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['img', 'desc', 'user_id'];
+    protected $fillable = ['img', 'desc', 'user_id', 'votes_count', 'rank'];
 
     public function user(): BelongsTo
     {
@@ -56,5 +56,29 @@ class Meme extends Model
             ->sum('votes_count');
 
         return $query;
+    }
+
+    public function getRankAttribute()
+    {
+        if ($this->cached_rank != null)
+            return $this->cached_rank;
+
+
+        return $this->updateRank($this->id);
+    }
+
+    public function updateRank(int $id = null): null|int
+    {
+        $memes = Meme::orderByDesc('votes_count')->get();
+
+        foreach ($memes as $index => $meme) {
+            $meme->cached_rank = $index + 1;
+            $meme->save();
+
+            if ($meme->id == $this->id)
+                return $index + 1;
+        }
+
+        return null;
     }
 }

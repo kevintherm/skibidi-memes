@@ -22,6 +22,7 @@ return new class extends Migration {
             $table->string('upvotes_count')->default(0);
             $table->string('downvotes_count')->default(0);
             $table->string('votes_count')->default(0);
+            $table->string('cached_rank')->nullable();
             $table->timestamps();
         });
     }

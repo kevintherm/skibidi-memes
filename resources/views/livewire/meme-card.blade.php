@@ -5,9 +5,9 @@
     <div class="d-flex justify-content-between align-items-baseline">
         <span class="m-0 p-0">
             <span class="rating fs-2 fw-bold">
-                #??
+                #{{ $meme->rank }}
             </span>
-            In ??
+            di Top Upvotes
         </span>
         <span>By {{ $meme->user->name }}</span>
     </div>
