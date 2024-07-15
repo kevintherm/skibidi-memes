@@ -78,7 +78,30 @@ class User extends Authenticatable
         return 'No Rank';
     }
 
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'user_follow', 'follower_id', 'following_id');
+    }
 
+    public function followings()
+    {
+        return $this->belongsToMany(User::class, 'user_follow', 'following_id', 'follower_id');
+    }
+
+    public function follow(User $user): void
+    {
+        $this->followings()->attach($user->id);
+    }
+
+    public function unfollow(User $user): void
+    {
+        $this->followings()->detach($user->id);
+    }
+
+    public function isFollowing(User $user): bool
+    {
+        return !!$this->followings()->wherePivot('follower_id', $user->id)->count();
+    }
 
     public function getRouteKeyName(): string
     {

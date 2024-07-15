@@ -11,8 +11,8 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('user_follow', function (Blueprint $table) {
-            $table->foreignId('follower_id');
-            $table->foreignId('following_id');
+            $table->foreignId('follower_id'); // User yg di ikuti
+            $table->foreignId('following_id'); // User yang mengikuti
         });
     }
 

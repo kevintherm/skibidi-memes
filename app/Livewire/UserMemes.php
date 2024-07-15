@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class UserMemes extends Component
 {
     public int $perPage = 3;
+    public $user_id;
 
     public function loadMore(): void
     {
@@ -19,7 +20,7 @@ class UserMemes extends Component
     {
         return view('livewire.user-memes', [
             'memes' => Meme::latest()
-                ->where('user_id', Auth::user()->id)
+                ->where('user_id', $this->user_id)
                 ->take($this->perPage)
                 ->get()
         ]);

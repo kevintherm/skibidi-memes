@@ -98,7 +98,7 @@
                     <span class="name mt-3">{{ $user->name }}</span> <span
                         class="idd">{{ '@' . $user->username }}</span>
                     <div class="d-flex flex-row justify-content-center gap-4 align-items-center mt-3">
-                        <span class="number">1069
+                        <span class="number">{{ $user->followers->count() }}
                             <span class="follow">Followers</span>
                         </span>
                         <span class="number">{{ $user->memes->count() }}
@@ -114,7 +114,7 @@
                         </span>
                     </div>
                     <div class=" d-flex mt-2">
-                        <button onclick="location = '/'" class="btn1 btn-dark">Follow</button>
+                        <livewire:follow-user-button :user="$user" />
                     </div>
                     <div class="text mt-3">
                         <span>
@@ -146,7 +146,7 @@
 
         </div>
 
-        <livewire:user-memes />
+        <livewire:user-memes :user_id="$user->id" />
     </div>
 
 </x-main-layout>
