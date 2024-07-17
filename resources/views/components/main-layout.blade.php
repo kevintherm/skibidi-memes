@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>Skibidi Memes</title>
 
     <link rel="shortcut icon" href="logo.png" type="image/png">
@@ -29,6 +31,12 @@
             margin-inline: auto;
         }
     </style>
+
+    <script>
+        function errorImage(el) {
+            el.src = '/profile.jpg';
+        }
+    </script>
 </head>
 
 <body class="position-relative">
@@ -56,6 +64,24 @@
     @if (session()->has('message'))
         <script>
             Swal.fire(@json(session('message')))
+        </script>
+    @endif
+
+    @if (session()->has('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: @json(session('success'))
+            })
+        </script>
+    @endif
+
+    @if (session()->has('error'))
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: @json(session('error'))
+            })
         </script>
     @endif
 

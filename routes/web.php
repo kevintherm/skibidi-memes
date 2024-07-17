@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MemeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 
 Route::view('/', 'home')
     ->name('home');
@@ -19,6 +20,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->only(['store']);
 
     Route::view('profile', 'profile')->name('profile');
+    Route::view('profile/edit', 'profile.edit-detail')
+        ->name('profile.edit');
+    Route::view('profile/edit/password', 'profile.edit-password')
+        ->name('profile.edit.password');
+    Route::put('profile/edit', [ProfileController::class, 'update']);
+    Route::put('profile/edit/password', [ProfileController::class, 'updatePassword']);
+    Route::put('profile/edit/image', [ProfileController::class, 'updateImage'])
+        ->name('profile.edit.image');
 });
 
 Route::middleware('guest')->group(function () {
