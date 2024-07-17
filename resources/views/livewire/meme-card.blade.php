@@ -13,7 +13,13 @@
                 href="{{ route('user.show', $meme->user->username) }}">{{ $meme->user->name }}</a></span>
     </div>
     <div>
-        <img src="{{ Storage::url($meme->img) }}" class="rounded-0" style="width: 100%; height: auto" loading="lazy" />
+        @if (in_array(pathinfo($meme->img, PATHINFO_EXTENSION), ['mp4', 'wav']))
+            <video muted loop controls src="{{ Storage::url($meme->img) }}" class="rounded-0"
+                style="width: 100%; height: auto" loading="lazy"></video>
+        @else
+            <img src="{{ Storage::url($meme->img) }}" class="rounded-0" style="width: 100%; height: auto"
+                loading="lazy" />
+        @endif
     </div>
     <div class="p-2 px-md-0" x-data>
         <div class="d-flex justify-content-between align-items-center">

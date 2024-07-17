@@ -88,7 +88,7 @@
                 <label id="dragandrophandler" for="img">
                     Klik atau Drag file kesini
                 </label>
-                <input type="file" name="img" id="img" accept="image/*" hidden />
+                <input type="file" name="img" id="img" accept=".jpg,.jpeg,.png,.mp4,.wav,.webm" hidden />
                 <div id="result">
                     File terpilih: <span></span>
                 </div>

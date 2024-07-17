@@ -62,6 +62,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('lib/js/share-buttons.js') }}"></script>
     <script src="{{ asset('lib/js/share-buttons.jquery.js') }}"></script>
+    <script src="{{ asset('lib/js/isview.js') }}"></script>
 
 
     @if (session()->has('message'))
