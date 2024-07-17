@@ -22,6 +22,7 @@ class MemeController extends Controller
 
         $validated['user_id'] = Auth::user()->id;
         $validated['img'] = $request->file('img')->store('public/memes');
+        $validated['slug'] = str()->random(10) . time();
 
         $meme = Meme::create($validated);
 

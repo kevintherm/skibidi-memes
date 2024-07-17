@@ -10,6 +10,13 @@
             React atau upload meme skibidi favorit mu!
         </p>
 
+        @if (request('show') && !!request('show'))
+            @php($meme = App\Models\Meme::where('slug', request('show'))->first())
+            @if ($meme)
+                <livewire:meme-card :meme="$meme" />
+            @endif
+        @endif
+
         <livewire:memes-feed />
 
     </div>

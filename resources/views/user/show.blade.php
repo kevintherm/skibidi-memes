@@ -93,7 +93,7 @@
                     </p>
 
                     <button class="btn btn-secondary">
-                        <img src="https://i.imgur.com/wvxPV9S.png" height="100" width="100" />
+                        <img src="{{ Storage::url($user->image) }}" height="100" width="100" />
                     </button>
                     <span class="name mt-3">{{ $user->name }}</span> <span
                         class="idd">{{ '@' . $user->username }}</span>

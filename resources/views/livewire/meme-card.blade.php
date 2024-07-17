@@ -9,7 +9,8 @@
             </span>
             di Top Upvotes
         </span>
-        <span>By {{ $meme->user->name }}</span>
+        <span>By <a class="link-dark link-underline link-underline-opacity-0"
+                href="{{ route('user.show', $meme->user->username) }}">{{ $meme->user->name }}</a></span>
     </div>
     <div>
         <img src="{{ Storage::url($meme->img) }}" class="rounded-0" style="width: 100%; height: auto" loading="lazy" />
@@ -51,10 +52,21 @@
                     {{-- <i class="bi bi-arrow-down-circle-fill fs-3" style="color: #f59e0b;"></i> --}}
                 </button>
             </div>
-            <button title="share" type="button" class="btn p-0 m-0 border-0">
-                <i class="bi bi-share fs-3"></i>
-                {{-- <i class="bi bi-arrow-down-circle-fill fs-3" style="color: #f59e0b;"></i> --}}
-            </button>
+            <div class="dropdown">
+                <button title="share" type="button" class="btn p-0 m-0 border-0" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <i class="bi bi-share fs-3"></i>
+                </button>
+                {!! ShareButtons::page(url('?show=' . $meme->slug), $meme->desc, [
+                    'title' => $meme->desc,
+                    'rel' => 'nofollow noopener noreferrer',
+                    'block_prefix' => '<ul class="dropdown-menu">',
+                    'block_suffix' => '</ul>',
+                    'element_prefix' => '<li>',
+                    'element_suffix' => '</li>',
+                    'class' => 'dropdown-item',
+                ])->facebook()->linkedin(['rel' => 'follow'])->telegram()->whatsapp()->render() !!}
+            </div>
         </div>
         <p class="m-0 p-0 fw-semibold">
             {{ $displayVotes ?? $meme->votes_count }} Upvotes

@@ -13,6 +13,7 @@ return new class extends Migration {
     {
         Schema::create('memes', function (Blueprint $table) {
             $table->id();
+            $table->string('slug')->unique();
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->cascadeOnDelete()
@@ -23,6 +24,7 @@ return new class extends Migration {
             $table->string('downvotes_count')->default(0);
             $table->string('votes_count')->default(0);
             $table->string('cached_rank')->nullable();
+            $table->dateTime('cached_rank_expired_at')->nullable();
             $table->timestamps();
         });
     }

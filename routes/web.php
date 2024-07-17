@@ -47,5 +47,5 @@ Route::middleware('guest')->group(function () {
 Route::delete('/logout', [AuthController::class, 'logout'])
     ->name('logout');
 
-Route::resource('user', UserController::class)
-    ->only(['show']);
+Route::get('/{user:username}', [UserController::class, 'show'])
+    ->name('user.show');
