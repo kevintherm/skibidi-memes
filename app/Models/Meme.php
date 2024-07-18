@@ -13,7 +13,7 @@ class Meme extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['img', 'desc', 'user_id', 'votes_count', 'rank'];
+    protected $fillable = ['img', 'desc', 'user_id', 'votes_count', 'rank', 'slug'];
 
     public function user(): BelongsTo
     {
@@ -60,9 +60,10 @@ class Meme extends Model
 
     public function getRankAttribute()
     {
-        if ($this->cached_rank != null)
+        // Assuming cached_rank holds the expiration time and rank is stored separately
+        if ($this->cached_rank_expired_at > now()) {
             return $this->cached_rank;
-
+        }
 
         return $this->updateRank($this->id);
     }
@@ -72,11 +73,14 @@ class Meme extends Model
         $memes = Meme::orderByDesc('votes_count')->get();
 
         foreach ($memes as $index => $meme) {
+            // Update both cached rank and its expiration time
             $meme->cached_rank = $index + 1;
+            $meme->cached_rank_expired_at = now()->addHour();
             $meme->save();
 
-            if ($meme->id == $this->id)
-                return $index + 1;
+            if ($meme->id == $this->id) {
+                return $meme->cached_rank;
+            }
         }
 
         return null;

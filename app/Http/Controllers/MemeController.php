@@ -16,12 +16,13 @@ class MemeController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'img' => 'required|image',
+            'img' => 'required|mimes:jpg,jpeg,png,mp4,wav,webm|duration_max:300',
             'desc' => 'nullable|string'
         ]);
 
         $validated['user_id'] = Auth::user()->id;
         $validated['img'] = $request->file('img')->store('public/memes');
+        $validated['slug'] = str()->random(10) . time();
 
         $meme = Meme::create($validated);
 

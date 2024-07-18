@@ -19,8 +19,10 @@ class MemesFeed extends Component
 
     public function render()
     {
+
         return view('livewire.memes-feed', [
-            'memes' => Meme::orderByDesc('votes_count')->take($this->perPage)->get()
+            'memes' => Meme::orderByDesc('votes_count')
+                ->take($this->perPage)->get()
         ]);
     }
 }
